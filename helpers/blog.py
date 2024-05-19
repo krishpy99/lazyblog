@@ -1,5 +1,5 @@
 import requests
-from config import Settings
+from helpers.config import Settings
 import json
 
 
@@ -42,4 +42,5 @@ def write_blog(title, content, tags):
 
     response = requests.post(base_url + path, json=payload, headers=headers)
     res = json.loads((response.content).decode('utf-8'))
+    print("article written.")
     return res

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Topic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .loading {
+            display: none;
+            font-size: 20px;
+            color: #007BFF;
+        }
+    </style>
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            const topic = document.getElementById('topic').value;
+            const response = await fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({topic: topic}),
+            });
+            const result = await response.json();
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            document.getElementById('result-content').innerText = result.res;
+        }
+    </script>
+</head>
+<body>
+    <div class="container" id="form-container">
+        <h1>Submit a Topic</h1>
+        <form id="topic-form" onsubmit="submitForm(event)">
+            <label for="topic">Topic:</label>
+            <input type="text" id="topic" name="topic">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="loading" id="loading">Loading...</div>
+    <div class="container" id="result-container" style="display: none;">
+        <h1>Blog Written Successfully!</h1>
+        <p id="result-content"></p>
+        <form action="/" method="get">
+            <button type="submit">Back to Form</button>
+        </form>
+    </div>
+</body>
+</html>
+ 

@@ -1,10 +1,10 @@
 import google.generativeai as genai
-from config import Settings
+from helpers.config import Settings
 
 env = Settings()
 
 class Gemini:
-    def Gemini(self):
+    def __init__(self):
         genai.configure(api_key=env.gemini_api_key)
         self.model = genai.GenerativeModel('gemini-pro')
 
@@ -14,7 +14,7 @@ class Gemini:
 
     def get_prompt(self, topic, relevant_data = None):
         response = self.model.generate_content("write a good prompt to generate an article using gemini under the topic " + topic)
-        print(response.text)
+        print("prompt generated.")
         return response.text
 
     def write_article(self, prompt):
@@ -26,4 +26,5 @@ class Gemini:
 
         tags = response.text
         tags = tags.split(',')
+        print("article generated.")
         return {"title": title, "content": content, "tags": tags}
