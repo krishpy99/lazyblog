@@ -37,7 +37,7 @@ def write_blog(title, content, tags):
         "publishStatus": "public"
     }
 
-    with open("text.json", "w") as t:
+    with open("helpers/json/text.json", "w") as t:
         json.dump(payload, t)
 
     response = requests.post(base_url + path, json=payload, headers=headers)
