@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Submit Topic</title>
+    <title>Lazy Blog</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -70,7 +70,9 @@
             const result = await response.json();
             document.getElementById('loading').style.display = 'none';
             document.getElementById('result-container').style.display = 'block';
-            document.getElementById('result-content').innerText = result.res;
+            document.getElementById('result-title').innerText = result.title;
+            document.getElementById('result-content').innerHTML = result.content;
+            document.getElementById('result-tags').innerText = `Tags: ${result.tags.join(', ')}`;
         }
     </script>
 </head>
@@ -84,13 +86,13 @@
         </form>
     </div>
     <div class="loading" id="loading">Loading...</div>
-    <div class="container" id="result-container" style="display: none;">
-        <h1>Blog Written Successfully!</h1>
-        <p id="result-content"></p>
+    <div class="container" id="result-container" style="display: none; text-align: left;">
+        <h1 id="result-title"></h1>
+        <div id="result-content"></div>
+        <p id="result-tags" style="color: #007BFF; font-weight: bold;"></p>
         <form action="/" method="get">
             <button type="submit">Back to Form</button>
         </form>
     </div>
 </body>
 </html>
- 

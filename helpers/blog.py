@@ -30,7 +30,7 @@ def write_blog(title, content, tags):
 
     payload = {
         "title": title,
-        "contentFormat": "markdown",
+        "contentFormat": "html",
         "content": content,
         "canonicalUrl": "",
         "tags": tags,

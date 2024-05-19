@@ -16,8 +16,12 @@ async def read_form():
 async def submit_form(topic: str = Form(...)):
     prompt = gen.get_prompt(topic)
     res = gen.write_article(prompt)
-    res = write_blog(res["title"], res["content"], res["tags"])
-    return {"res": res}
+    _ = write_blog(res["title"], res["content"], res["tags"])
+    return {
+        "title": res["title"],
+        "content": res["content"],
+        "tags": res["tags"]
+    }
 
 @app.get("/write")
 def read_root():
